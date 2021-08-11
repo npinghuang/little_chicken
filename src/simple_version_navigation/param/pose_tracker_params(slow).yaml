@@ -1,0 +1,25 @@
+little_chicken:
+  control_freq: 30.0
+  xy_tolerance: 0.01
+  theta_tolerance: 0.01
+  backward_tolerance: 0.0
+
+  deviate_distance: 0.10
+  Kd: 0.1
+  Kt: 0.5
+
+  latch_xy: true
+  linear_compensate: true
+  overshoot_compensate: true
+
+  max_linear_velocity: 0.2
+  v_threshold: 0.05
+  velocity_acc: 0.2
+  velocity_deceleration: 0.1
+  v_recovery: 0.05
+
+  max_angular_velocity: 1.2
+  w_threshold: 0.1
+  angular_velocity_acc: 1.2
+  angular_velocity_deceleration: 0.5
+  w_recovery: 0.1

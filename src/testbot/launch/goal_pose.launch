@@ -1,0 +1,7 @@
+<launch>
+  <node pkg="testbot" type="goal_pose" name="goal_pose" output="screen">
+    <param name="goal_x" value="0.815"/><!--0.815 0.385 -1.57 || 0.932 2.1 -1.57-->
+    <param name="goal_y" value="0.385"/>
+    <param name="goal_theta" value="-1.5707963"/>
+  </node>
+</launch>

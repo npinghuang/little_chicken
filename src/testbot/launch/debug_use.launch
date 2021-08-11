@@ -1,0 +1,25 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="map_file" default="$(find testbot)/maps/map.yaml"/>
+  <arg name="open_rviz" default="true"/>
+  <arg name="move_forward_only" default="false"/>
+
+  <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster"  args="0 0 0 0 0 0 map odom 0.1"/> 
+  <node pkg="testbot" name = "odometry_test" type = "odometry_test"  output="screen" />
+  <!-- <node pkg="testbot" name = "odom_integral" type = "odom_integral"  output="screen" /> -->
+  <!-- <node pkg="testbot" name = "planner_to_ST" type = "planner_to_ST"  output="screen" /> -->
+
+  <!-- Map server -->
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+
+  <!-- move_base -->
+  <!-- <include file="$(find testbot)/launch/move_base.launch">
+    <arg name="move_forward_only" value="$(arg move_forward_only)"/>
+  </include> -->
+
+  <!-- rviz -->
+  <group if="$(arg open_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find testbot)/rviz/turtlebot3_navigation.rviz"/>
+  </group>
+
+</launch>

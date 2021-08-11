@@ -1,0 +1,9 @@
+<!-- 測試用luanch 檔案-->
+<launch>
+
+  <node pkg="testbot" name = "goal_pose_multipoint" type = "goal_pose_multipoint"  output="screen" ns="big_chicken">
+    <rosparam param="goal_list">[[1.0,0.5,-1.57],[1.0,2.5,-1.57]]</rosparam>
+    <param name="goal_loop" value="false" />
+  </node>
+
+</launch>

@@ -1,0 +1,15 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="open_rviz" default="true"/>
+
+  <!-- move_base -->
+  <include file="$(find testbot)/launch/move_base.launch">
+  </include>
+
+  <!-- rviz -->
+  <group if="$(arg open_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find testbot)/rviz/turtlebot3_navigation.rviz"/>
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find teb_local_planner_tutorials)/cfg/rviz_navigation.rviz"/> -->
+  </group>
+
+</launch>

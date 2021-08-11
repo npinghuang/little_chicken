@@ -1,0 +1,22 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="open_rviz" default="true"/>
+  <arg name="map_file" default="$(find testbot)/maps/map.yaml"/>
+
+  <node pkg="simple_version_navigation" type="pose_tracker_2" name="pose_tracker" output="screen" />
+  <rosparam file="$(find simple_version_navigation)/param/pose_tracker_params.yaml" command="load" />
+  
+  
+  <!-- x y z y p r--> 
+  <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster"  args="0 0 0 0 0 0 map odom 0.1"/> 
+  <node pkg="testbot" name = "odom_integral" type = "odom_integral"  output="screen" />
+  
+  <!-- rviz -->
+  <group if="$(arg open_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find simple_version_navigation)/rviz/pose_tracker.rviz"/>
+  </group>
+
+  <!-- Map server -->
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+
+</launch>

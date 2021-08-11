@@ -1,0 +1,36 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="open_rviz" default="true"/>
+  <arg name="map_file" default="$(find testbot)/maps/map.yaml"/>
+  <arg name="init_x_" default="0.932" />
+  <arg name="init_y_" default="2.75" /> <!--2.68-->
+  <arg name="init_yaw_" default="-1.5707963" />
+
+  <node pkg="simple_version_navigation" type="pose_tracker_2" name="pose_tracker" output="screen" />
+  <rosparam file="$(find simple_version_navigation)/param/pose_tracker_params.yaml" command="load" />
+  <!-- <rosparam file="$(find simple_version_navigation)/param/pose_tracker_params_big.yaml" command="load" /> -->
+
+  
+  <!-- x y z y p r--> 
+  <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster"  args="0 0 0 0 0 0 map odom 0.1"/>
+
+  <node pkg="testbot" name = "odometry_test" type = "odometry_test"  output="screen">
+    <param name="init_x" value="$(arg init_x_)"/>
+    <param name="init_y" value="$(arg init_y_)"/>
+    <param name="init_yaw" value="$(arg init_yaw_)"/>
+  </node>
+
+  <node pkg="testbot" name = "planner_to_ST" type = "planner_to_ST"  output="screen">
+    <param name="init_x" value="$(arg init_x_)"/>
+    <param name="init_y" value="$(arg init_y_)"/>
+    <param name="init_yaw" value="$(arg init_yaw_)"/>
+  </node>
+  <!-- rviz -->
+  <group if="$(arg open_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find simple_version_navigation)/rviz/pose_tracker.rviz"/>
+  </group>
+
+  <!-- Map server -->
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+
+</launch>

@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="testbot" name = "planner_to_ST" type = "planner_to_ST"  output="screen" /> 
+</launch>
